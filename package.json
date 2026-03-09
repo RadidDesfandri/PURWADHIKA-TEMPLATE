@@ -14,7 +14,7 @@
     "build:frontend": "npm run build -w apps/frontend",
     "build:backend": "npm run build -w apps/backend",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production') { try { require('husky').install() } catch (e) {} }\""
   },
   "keywords": [],
   "author": "",
