@@ -9,7 +9,8 @@
     "start": "node dist/src/index.js",
     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
