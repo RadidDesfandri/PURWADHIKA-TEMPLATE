@@ -28,8 +28,10 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(
-    `✅ Server Api Running... \n ➜  [API] 🚀 Local: http://localhost:${String(PORT)}`
-  );
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(
+      `✅ Server Api Running... \n ➜  [API] 🚀 Local: http://localhost:${String(PORT)}`
+    );
+  });
+}
