@@ -21,3 +21,13 @@ model Example {
 
   @@map("example")
 }
+
+model User {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
