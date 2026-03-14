@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import ExampleRouter from './routers/example.route';
+import ExampleRouter from './routes/example.route';
 
 const app: Application = express();
 const PORT = 8000;
