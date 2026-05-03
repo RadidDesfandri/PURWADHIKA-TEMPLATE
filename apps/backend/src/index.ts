@@ -1,6 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import ExampleRouter from './routes/example.route';
+import { formatZodIssues } from './middlewares/validator.middleware';
+import { ZodError } from 'zod';
 
 const app: Application = express();
 const PORT = 8000;
@@ -21,10 +23,24 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Global Error Handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    message: err.message || 'Internal Server Error',
+app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof ZodError) {
+    return res.status(422).json({
+      message: 'Validation error',
+      errors: formatZodIssues(err),
+    });
+  }
+
+  const e = err as {
+    stack?: string;
+    status?: number;
+    message?: string;
+    errors?: unknown;
+  };
+  console.error(e.stack);
+  res.status(e.status || 500).json({
+    message: e.message || 'Internal Server Error',
+    errors: e.errors || [],
   });
 });
 
